@@ -1,39 +1,27 @@
 #!/usr/bin/env python
-"""URL-safe order-preserving natural-number packer."""
+"""URL-safe natural-number packer.
+
+This module extends the packnaturals_ordered implementation to achieve
+more compression (especially when you have clusters of numbers)  at the
+expense of ordering.
+"""
 from __future__ import print_function
-ABC = 'hdOBCH8Rz~926xKW_vLABCwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTumiSteInGr1Ms5oN'
+import packnaturals_ordered
+
+to_list_decor = lambda func: lambda arg: list(func(arg))
 
 def pack(numbers):
-    assert all([isinstance(n, int) and n>=0 for n in numbers])
-    segments = []
-    for n in numbers:
-        if n == 0:
-            segments.append(ABC[2**5])
-            continue
-        bucket = []
-        while n:
-            i = n % 2**5
-            n //= 2**5
-            if n:
-                bucket.append(i)
-            else:
-                bucket.append(i + 2**5)
-        segments.append(''.join([ABC[x] for x in bucket]))
-    return ''.join(segments)
+    s = sorted(numbers)
+    rel = s[:1] + [a-b for a, b in zip(s[1:], s)]
+    return packnaturals_ordered.pack(rel)
 
+@to_list_decor
 def unpack(string):
-    numbers = []
-    shift = carry = 0
-    for s in string:
-        n = ABC.index(s)
-        if n < 2**5:
-            carry += (n << shift)
-            shift += 5
-        else:
-            n -= 2**5
-            numbers.append(carry + (n << shift))
-            shift = carry = 0
-    return numbers
+    rel = packnaturals_ordered.unpack(string)
+    incr = 0
+    for n in rel:
+        incr += n
+        yield incr
 
 if __name__ == "__main__":
     import sys
