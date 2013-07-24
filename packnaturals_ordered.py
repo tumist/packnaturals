@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """URL-safe order-preserving natural-number packer."""
 from __future__ import print_function
-ABC = 'hdOBCH8Rz~926xKW_vLABCwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTumiSteInGr1Ms5oN'
+ABC = 'hdOBCH8Rz~926xKW_vLAwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTum1SteInGriMs5oN'
 
 def pack(numbers):
     assert all([isinstance(n, int) and n>=0 for n in numbers])

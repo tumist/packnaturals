@@ -27,7 +27,7 @@ Pack some primes
 
 ```
 % python packnaturals_ordered.py 2 3 5 7 11 13 17 19 23 29
-packed   : qZQfgcTmeM
+packed   : 7QfjcDmSn5
 unpacked : 2 3 5 7 11 13 17 19 23 29
 ```
 
@@ -35,10 +35,10 @@ Order-preserving vs. non-order-preserving
 
 ```
 % python packnaturals.py 12 13 87 99 111 104 102 100 1337 42
-packed   : JkMxkJkqqf98k
+packed   : XZ5xZXZ77j98Z
 unpacked : 12 13 42 87 99 100 102 104 111 1337
 
 % python packnaturals_ordered.py 12 13 87 99 111 104 102 100 1337 42
-packed   : JclqBZWZzZ8ZCZE~k9k
+packed   : XDE7BQWQzQ8QCQ3~Z9Z
 unpacked : 12 13 87 99 111 104 102 100 1337 42
 ```
