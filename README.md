@@ -42,3 +42,11 @@ unpacked : 12 13 42 87 99 100 102 104 111 1337
 packed   : XDE7BQWQzQ8QCQ3~Z9Z
 unpacked : 12 13 87 99 111 104 102 100 1337 42
 ```
+
+
+JavaScript
+----------
+
+packnaturals.js contains a naive translation of the non-order-preserving methods
+found in the python module. Due to JavaScripts' specification of bitshift, the
+largest number that can be unpacked is (2<sup>31</sup>) - 1.
