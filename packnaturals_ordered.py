@@ -4,7 +4,7 @@ from __future__ import print_function
 ABC = 'hdOBCH8Rz~926xKW_vLAwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTum1SteInGriMs5oN'
 
 def pack(numbers):
-    assert all([isinstance(n, int) and n>=0 for n in numbers])
+    assert all([isinstance(n, (int, long)) and n>=0 for n in numbers])
     segments = []
     for n in numbers:
         if n == 0:
