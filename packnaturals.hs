@@ -1,4 +1,5 @@
 import Data.List (elemIndex)
+import System.Environment (getArgs)
 
 abc = "hdOBCH8Rz~926xKW_vLAwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTum1SteInGriMs5oN"
 
@@ -25,3 +26,13 @@ unpack s = case mapped of Just ns -> Just $ map unpackInt $ groupByTerminator ns
         num = fst spanned ++ [head (snd spanned) - 2^5]
         rest = tail $ snd spanned
         spanned = span (<2^5) numlist
+
+main = do
+  args <- getArgs
+  let intArgs = map (\x -> read x :: Int) args
+  let packed = pack intArgs
+  let unpacked = unpack packed
+  putStrLn $ "packed   : " ++ packed
+  putStr $ "unpacked : "
+  case unpacked of Nothing   -> putStrLn "ERROR"
+                   Just nums -> putStrLn $ show nums
