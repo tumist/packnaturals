@@ -1,4 +1,4 @@
-import Data.List (elemIndex)
+import Data.List (elemIndex, sort)
 import System.Environment (getArgs)
 
 abc = "hdOBCH8Rz~926xKW_vLAwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTum1SteInGriMs5oN"
@@ -7,7 +7,7 @@ pack :: [Int] -> String
 pack n = concatMap packInt n
   where
     packInt n
-        | n < 2^5    = [abc !! (n + 2^5)]
+        | n < 2^5   = [abc !! (n + 2^5)]
         | otherwise = abc !! (n `mod` 2^5) : packInt (n `div` 2^5)
 
 unpack :: String -> Maybe [Int]
@@ -26,6 +26,11 @@ unpack s = case mapped of Just ns -> Just $ map unpackInt $ groupByTerminator ns
         num = fst spanned ++ [head (snd spanned) - 2^5]
         rest = tail $ snd spanned
         spanned = span (<2^5) numlist
+
+deltify il = head il : zipWith subtract il (tail il)
+undeltify = tail . scanl (+) 0
+packUnordered = pack . deltify . sort
+unpackUnordered l = fmap undeltify $ unpack l
 
 main = do
   args <- getArgs
