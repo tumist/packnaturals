@@ -3,20 +3,21 @@ import System.Environment (getArgs)
 
 abc = "hdOBCH8Rz~926xKW_vLAwl0Ey3aYpUPkqZ7Q4fVjFgJcXDbTum1SteInGriMs5oN"
 
-pack :: [Int] -> String
+pack :: Integral i => [i] -> String
 pack n = concatMap packInt n
   where
     packInt n
-        | n < 2^5   = [abc !! (n + 2^5)]
-        | otherwise = abc !! (n `mod` 2^5) : packInt (n `div` 2^5)
+        | n < 2^5   = [abc !! fromIntegral (n + 2^5)]
+        | otherwise = abc !! fromIntegral (n `mod` 2^5) : packInt (n `div` 2^5)
 
-unpack :: String -> Maybe [Int]
-unpack s = case mapped of Just ns -> Just $ map unpackInt $ groupByTerminator ns
+unpack :: String -> Maybe [Integer]
+unpack s = case mapped of Just ns -> Just $ map unpackInteger $ groupByTerminator ns
                           Nothing -> Nothing
   where
     mapped = mapM (\e -> elemIndex e abc) s
-    unpackInt ns = sum $ zipWith (\n pow -> n * 2^pow) ns [0,5..]
-
+    unpackInteger g = sum $ zipWith f g [0,5..]
+      where
+        f n pow = 2^pow * fromIntegral n :: Integer
     groupByTerminator [] = []
     groupByTerminator numlist = num : groupByTerminator rest
       where
