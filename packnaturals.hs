@@ -37,7 +37,7 @@ unpackUnordered l = undeltify $ unpack l
 main = do
   args <- getArgs
   let intArgs = map (\x -> read x :: Integer) args
-  let packed = pack intArgs
-  let unpacked = unpack packed
+  let packed = packUnordered intArgs
+  let unpacked = unpackUnordered packed
   putStrLn $ "packed   : " ++ packed
   putStrLn $ "unpacked : " ++ show unpacked
